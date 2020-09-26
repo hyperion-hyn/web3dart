@@ -34,8 +34,7 @@ Future<_SigningInput> _fillMissingData({
     resolvedChainId = chainId;
   } else {
     if (client == null) {
-      throw ArgumentError(
-          "Can't load chain id from network when no client is set");
+      throw ArgumentError("Can't load chain id from network when no client is set");
     }
 
     resolvedChainId = await client.getNetworkId();
@@ -67,8 +66,7 @@ Future<_SigningInput> _fillMissingData({
     }
 
     modifiedTransaction = modifiedTransaction.copyWith(
-      nonce: await client.getTransactionCount(modifiedTransaction.from,
-          atBlock: const BlockNum.pending()),
+      nonce: await client.getTransactionCount(modifiedTransaction.from, atBlock: const BlockNum.pending()),
     );
   }
 
@@ -79,13 +77,10 @@ Future<_SigningInput> _fillMissingData({
   );
 }
 
-Future<Uint8List> _signTransaction(
-    Transaction transaction, Credentials c, int chainId) async {
-  final innerSignature =
-      chainId == null ? null : MsgSignature(BigInt.zero, BigInt.zero, chainId);
+Future<Uint8List> _signTransaction(Transaction transaction, Credentials c, int chainId) async {
+  final innerSignature = chainId == null ? null : MsgSignature(BigInt.zero, BigInt.zero, chainId);
 
-  final encoded =
-      uint8ListFromList(rlp.encode(_encodeToRlp(transaction, innerSignature)));
+  final encoded = uint8ListFromList(rlp.encode(_encodeToRlp(transaction, innerSignature)));
   final signature = await c.signToSignature(encoded, chainId: chainId);
 
   return uint8ListFromList(rlp.encode(_encodeToRlp(transaction, signature)));
@@ -108,6 +103,9 @@ List<dynamic> _encodeToRlp(Transaction transaction, MsgSignature signature) {
 
   if (signature != null) {
     list..add(signature.v)..add(signature.r)..add(signature.s);
+  }
+  if (signature.r != BigInt.zero && signature.s != BigInt.zero && transaction.type != null) {
+    list.add(BigInt.from(transaction.type));
   }
 
   return list;
