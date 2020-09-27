@@ -1,9 +1,5 @@
 part of 'package:web3dart/web3dart.dart';
 
-class TransactionType {
-  static const int normal = 0;
-}
-
 class Transaction {
   /// The address of the sender of this transaction.
   final EthereumAddress from;
@@ -40,6 +36,8 @@ class Transaction {
 
   final int type;
 
+  final IMessage message;
+
   Transaction({
     this.from,
     this.to,
@@ -49,34 +47,38 @@ class Transaction {
     this.data,
     this.nonce,
     this.type,
+    this.message,
   });
 
   /// Constructs a transaction that can be used to call a contract function.
-  Transaction.callContract(
-      {@required DeployedContract contract,
-      @required ContractFunction function,
-      @required List<dynamic> parameters,
-      this.from,
-      this.maxGas,
-      this.gasPrice,
-      this.value,
-      this.nonce,
-      this.type})
-      : assert(contract != null),
+  Transaction.callContract({
+    @required DeployedContract contract,
+    @required ContractFunction function,
+    @required List<dynamic> parameters,
+    this.from,
+    this.maxGas,
+    this.gasPrice,
+    this.value,
+    this.nonce,
+    this.type,
+    this.message,
+  })  : assert(contract != null),
         assert(function != null),
         assert(parameters != null),
         to = contract.address,
         data = function.encodeCall(parameters);
 
-  Transaction copyWith(
-      {EthereumAddress from,
-      EthereumAddress to,
-      int maxGas,
-      EtherAmount gasPrice,
-      EtherAmount value,
-      Uint8List data,
-      int nonce,
-      int type}) {
+  Transaction copyWith({
+    EthereumAddress from,
+    EthereumAddress to,
+    int maxGas,
+    EtherAmount gasPrice,
+    EtherAmount value,
+    Uint8List data,
+    int nonce,
+    int type,
+    IMessage message,
+  }) {
     return Transaction(
       from: from ?? this.from,
       to: to ?? this.to,
@@ -86,6 +88,7 @@ class Transaction {
       data: data ?? this.data,
       nonce: nonce ?? this.nonce,
       type: type ?? this.type,
+      message: message ?? this.message,
     );
   }
 }

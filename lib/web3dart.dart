@@ -29,3 +29,7 @@ part 'src/core/sync_information.dart';
 part 'src/core/transaction.dart';
 part 'src/core/transaction_information.dart';
 part 'src/core/transaction_signer.dart';
+
+part 'src/atlas/microstaking_message.dart';
+part 'src/atlas/restaking_message.dart';
+part 'src/atlas/message.dart';

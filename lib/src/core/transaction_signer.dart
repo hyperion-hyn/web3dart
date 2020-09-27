@@ -99,13 +99,22 @@ List<dynamic> _encodeToRlp(Transaction transaction, MsgSignature signature) {
     list.add('');
   }
 
-  list..add(transaction.value.getInWei)..add(transaction.data);
+  list.add(transaction.value.getInWei);
+
+  var type = transaction.type;
+  var data = transaction.data;
+  if (transaction.message != null) {
+    data = transaction.message.toRlp();
+    type = transaction.message.type;
+  }
+  list.add(data);
 
   if (signature != null) {
     list..add(signature.v)..add(signature.r)..add(signature.s);
-  }
-  if (signature.r != BigInt.zero && signature.s != BigInt.zero && transaction.type != null) {
-    list.add(BigInt.from(transaction.type));
+
+    if (signature.r != BigInt.zero && signature.s != BigInt.zero && type != null) {
+      list.add(BigInt.from(type));
+    }
   }
 
   return list;

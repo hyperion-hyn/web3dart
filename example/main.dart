@@ -26,12 +26,13 @@ void main() {
     await client.sendTransaction(
         credentials,
         Transaction(
-          to: EthereumAddress.fromHex('0xbdc8CAE8c6b269963aE615f4150A178b704131Ca'),
+          // to: EthereumAddress.fromHex('0xbdc8CAE8c6b269963aE615f4150A178b704131Ca'),
+          to: EthereumAddress.fromHex('0x70247395aFFd13C2347aA8c748225f1bFeD2C32A'),
           // gasPrice: EtherAmount.inWei(BigInt.one),
           gasPrice: EtherAmount.inWei(BigInt.one * BigInt.from(10).pow(9)),
           maxGas: 21000,
-          value: EtherAmount.fromUnitAndValue(EtherUnit.ether, 10),
-          type: TransactionType.normal,
+          value: EtherAmount.fromUnitAndValue(EtherUnit.ether, 107),
+          type: MessageType.typeNormal,
         ),
         chainId: 1);
 
