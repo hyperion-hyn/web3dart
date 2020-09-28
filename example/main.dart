@@ -42,7 +42,7 @@ void main() {
     print(message);
 
     ////转账
-    var tx = await client.sendTransaction(
+    /*var tx = await client.sendTransaction(
         credentials,
         Transaction(
           // to: EthereumAddress.fromHex('0xbdc8CAE8c6b269963aE615f4150A178b704131Ca'),
@@ -56,7 +56,36 @@ void main() {
         ),
         chainId: 1);
 
-    print(tx);
+    print(tx);*/
+    // await client.dispose();
+  });
+
+  test('trans api', () async {
+    // print(BigInt.from(21000) * BigInt.from(10).pow(9) / BigInt.from(10).pow(18));
+
+    // start a client we can use to send transactions
+    final client = Web3Client(rpcUrl, Client());
+
+    final credentials = await client.credentialsFromPrivateKey(privateKey);
+    final address = await credentials.extractAddress();
+
+    print(address.hexEip55);
+    print((await client.getBalance(address)).getValueInUnit(EtherUnit.ether));
+
+    /*var tx = await client.sendTransaction(
+        credentials,
+        Transaction(
+          // to: EthereumAddress.fromHex('0xbdc8CAE8c6b269963aE615f4150A178b704131Ca'),
+          to: EthereumAddress.fromHex('0x5c24A14B797A01BCc8eD74092c31794dDD80FB44'),
+          // gasPrice: EtherAmount.inWei(BigInt.one),
+          gasPrice: EtherAmount.inWei(BigInt.one * BigInt.from(10).pow(9)),
+          maxGas: 21000,
+          value: EtherAmount.fromUnitAndValue(EtherUnit.ether, 50000000),
+          type: MessageType.typeNormal,
+        ),
+        chainId: 1);
+
+    print(tx);*/
     // await client.dispose();
   });
 }
