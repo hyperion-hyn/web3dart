@@ -62,7 +62,7 @@ void main() {
 
   test('trans api', () async {
     // print(BigInt.from(21000) * BigInt.from(10).pow(9) / BigInt.from(10).pow(18));
-
+     print("[j] test");
     // start a client we can use to send transactions
     final client = Web3Client(rpcUrl, Client());
 
