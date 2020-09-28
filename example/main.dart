@@ -8,7 +8,8 @@ import 'package:web3dart/web3dart.dart';
 // const String privateKey = 'a2fd51b96dc55aeb14b30d55a6b3121c7b9c599500c1beb92a389c3377adc86e';
 const String privateKey = 'a87ca98c541a5f2c600a643aa07e006c31adcbdb2254e7edba691bd03da06574';
 // const String rpcUrl = 'http://localhost:7545';
-const String rpcUrl = 'http://18.181.179.155:8545';
+// const String rpcUrl = 'http://18.181.179.155:8545';
+const String rpcUrl = 'http://10.10.1.120:8545';
 
 void main() {
   test('update app api', () async {
@@ -23,19 +24,39 @@ void main() {
     print(address.hexEip55);
     print((await client.getBalance(address)).getValueInUnit(EtherUnit.ether));
 
-    await client.sendTransaction(
+    var amount = BigInt.from(110000) * BigInt.from(10).pow(18);
+    var message = CreateMap3NodeMessage(
+      amount: amount,
+        // ConvertTokenUnit.decimalToWei(Decimal.parse('0.13'))
+      commission: BigInt.from(10).pow(17), // 0.1   10%手续费
+      description: NodeDescription(
+          name: 'moo',
+          details: 'moo_detail',
+          identity: 'moo_idx',
+          securityContact: 'moo_contact',
+          website: 'moo_website'),
+      operatorAddress: address.hexEip55,
+      nodePubKey: '5228b7f763038bb5b7638b624a56535a97b7e2cf6cba6e43d303d8919d7397fffd2eed7060bd29a13f5a9ab78994f614',
+      nodeKeySig: 'eb88a3e92d7e6a8c1b356730cda4e6ef24dec89fd2d5279761c50e0f71c6597f06aec6c861c884ee5b3f311832a0f9026d3864b9c116294333301999737ff2a02331ee9bdde89e3963ba794ceaedd3bfbf39243405c1b2f99a52ccf5aca0f411',
+    );
+    print(message);
+
+    ////转账
+    var tx = await client.sendTransaction(
         credentials,
         Transaction(
           // to: EthereumAddress.fromHex('0xbdc8CAE8c6b269963aE615f4150A178b704131Ca'),
-          to: EthereumAddress.fromHex('0x70247395aFFd13C2347aA8c748225f1bFeD2C32A'),
+          // to: EthereumAddress.fromHex('0x70247395aFFd13C2347aA8c748225f1bFeD2C32A'),
           // gasPrice: EtherAmount.inWei(BigInt.one),
           gasPrice: EtherAmount.inWei(BigInt.one * BigInt.from(10).pow(9)),
-          maxGas: 21000,
-          value: EtherAmount.fromUnitAndValue(EtherUnit.ether, 107),
-          type: MessageType.typeNormal,
+          maxGas: 600000,
+          // value: EtherAmount.fromUnitAndValue(EtherUnit.ether, 107),
+          // type: MessageType.typeNormal,
+          message: message,
         ),
         chainId: 1);
 
+    print(tx);
     // await client.dispose();
   });
 }
