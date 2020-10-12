@@ -40,6 +40,7 @@ class MessageType {
   static const typeMicroDelegate = 9;
   static const typeUnMicroDelegate = 10;
   static const typeCollectMicroStakingRewards = 11;
+  static const typeRenewMap3 = 12;  //续约
 }
 
 class NodeStatus {

@@ -164,3 +164,30 @@ class CollectMicroRewardsMessage implements IMessage {
   @override
   int get type => MessageType.typeCollectMicroStakingRewards;
 }
+
+class RenewMap3NodeMessage implements IMessage {
+  final String map3NodeAddress;
+  final String delegatorAddress;
+  final bool isRenew;
+  final BigInt newCommissionRate;
+
+  RenewMap3NodeMessage({
+    this.delegatorAddress,
+    this.map3NodeAddress,
+    this.isRenew,
+    this.newCommissionRate,
+  });
+
+  @override
+  Uint8List toRlp() {
+    return uint8ListFromList(rlp.encode([
+      hexToBytes(map3NodeAddress),
+      hexToBytes(delegatorAddress),
+      if (isRenew) 0 else 1,
+      [newCommissionRate ?? 0]
+    ]));
+  }
+
+  @override
+  int get type => MessageType.typeRenewMap3;
+}
