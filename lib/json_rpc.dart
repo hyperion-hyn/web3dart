@@ -39,7 +39,7 @@ class JsonRPC {
     final data = json.decode(response.body) as Map<String, dynamic>;
     final id = data['id'] as int;
 
-    if (data.containsKey('error')) {
+    if (data.containsKey('error') && data['error'] != null) {
       final error = data['error'];
 
       final code = error['code'] as int;
