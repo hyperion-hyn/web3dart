@@ -50,7 +50,7 @@ class JsonRPC {
     }
 
     final result = data['result'];
-    return RPCResponse(id, result);
+    return RPCResponse(id, result, data['decodedResult']);
   }
 }
 
@@ -59,8 +59,9 @@ class JsonRPC {
 class RPCResponse {
   final int id;
   final dynamic result;
+  final dynamic resultDecoded;
 
-  const RPCResponse(this.id, this.result);
+  const RPCResponse(this.id, this.result, this.resultDecoded);
 }
 
 /// Exception thrown when an the server returns an error code to an rpc request.
