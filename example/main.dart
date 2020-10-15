@@ -7,6 +7,7 @@ import 'package:web3dart/web3dart.dart';
 // 343ea1865903c74252f3f0ff7bd93f13b4910b93d17d2b4d965725e92f949a68 //0xa791650bDe11A8d26B94357A32DbA40A8b4CDa5d
 // const String privateKey = 'a2fd51b96dc55aeb14b30d55a6b3121c7b9c599500c1beb92a389c3377adc86e';
 const String privateKey = 'a87ca98c541a5f2c600a643aa07e006c31adcbdb2254e7edba691bd03da06574';
+const String privateKey2 = '0x80dd5684b4c5a7218cd97415ec652ed1f11b5b0734f46985b8ed15d3fe91fd33';
 // const String rpcUrl = 'http://localhost:7545';
 // const String rpcUrl = 'http://18.181.179.155:8545';
 const String rpcUrl = 'http://10.10.1.120:8545';
@@ -18,7 +19,7 @@ void main() {
     // start a client we can use to send transactions
     final client = Web3Client(rpcUrl, Client());
 
-    final credentials = await client.credentialsFromPrivateKey(privateKey);
+    final credentials = await client.credentialsFromPrivateKey(privateKey2);
     final address = await credentials.extractAddress();
 
     print(address.hexEip55);
@@ -30,14 +31,14 @@ void main() {
         // ConvertTokenUnit.decimalToWei(Decimal.parse('0.13'))
       commission: BigInt.from(10).pow(17), // 0.1   10%手续费
       description: NodeDescription(
-          name: 'moo',
-          details: 'moo_detail',
-          identity: 'moo_idx',
-          securityContact: 'moo_contact',
-          website: 'moo_website'),
+          name: 'moo22',
+          details: 'moo_detail22',
+          identity: 'moo_idx22',
+          securityContact: 'moo_contact22',
+          website: 'moo_website22'),
       operatorAddress: address.hexEip55,
-      nodePubKey: '5228b7f763038bb5b7638b624a56535a97b7e2cf6cba6e43d303d8919d7397fffd2eed7060bd29a13f5a9ab78994f614',
-      nodeKeySig: 'eb88a3e92d7e6a8c1b356730cda4e6ef24dec89fd2d5279761c50e0f71c6597f06aec6c861c884ee5b3f311832a0f9026d3864b9c116294333301999737ff2a02331ee9bdde89e3963ba794ceaedd3bfbf39243405c1b2f99a52ccf5aca0f411',
+      nodePubKey: 'b35ae32d9fa476dac39500078b01501b4eab8f01341899f56f0b4af59bd4b869c9b8da021a84f9bc397052b0e9a0dc08',
+      nodeKeySig: '3f056e0aa9d7029499ec3c07255652bf259658ec9c4cb756e7d82db6341b400861a1090046dc189cded337b364787b170a205fc76ea1d1589906a0373c3b050dbea783044701b6e483e3b60fc9b7af0befb49170ae4d7882765e27f7c20acd90',
     );
     print(message);
 
@@ -51,7 +52,7 @@ void main() {
           gasPrice: EtherAmount.inWei(BigInt.one * BigInt.from(10).pow(9)),
           maxGas: 600000,
           // value: EtherAmount.fromUnitAndValue(EtherUnit.ether, 107),
-          // type: MessageType.typeNormal,
+           type: message.type,
           message: message,
         ),
         chainId: 1);
@@ -80,7 +81,7 @@ void main() {
           // gasPrice: EtherAmount.inWei(BigInt.one),
           gasPrice: EtherAmount.inWei(BigInt.one * BigInt.from(10).pow(9)),
           maxGas: 21000,
-          value: EtherAmount.fromUnitAndValue(EtherUnit.ether, 50000000),
+          value: EtherAmount.fromUnitAndValue(EtherUnit.ether, 30000000),
           type: MessageType.typeNormal,
         ),
         chainId: 1);
