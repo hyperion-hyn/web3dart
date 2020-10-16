@@ -37,13 +37,13 @@ void main() {
           securityContact: 'moo_contact22',
           website: 'moo_website22'),
       operatorAddress: address.hexEip55,
-      nodePubKey: 'b35ae32d9fa476dac39500078b01501b4eab8f01341899f56f0b4af59bd4b869c9b8da021a84f9bc397052b0e9a0dc08',
-      nodeKeySig: '3f056e0aa9d7029499ec3c07255652bf259658ec9c4cb756e7d82db6341b400861a1090046dc189cded337b364787b170a205fc76ea1d1589906a0373c3b050dbea783044701b6e483e3b60fc9b7af0befb49170ae4d7882765e27f7c20acd90',
+      nodePubKey: '6e3c64ff77d2487bb358f96eac51bd1898398e4725452c4e382014267a0cebadcfda4cab6b224ecdd1c700018d41ec85',
+      nodeKeySig: 'f735759db3cfe8ce70cde354c825497a63d83aea75adf6194153ad1302d0a1dcab057ab1484b64692c11a6c5d7c8100a9777d1541712a02a1b479375e98cc13c2ef3a20369b472cba943d4e763cc451dca1b0d65a0ca2c66bb19fe8566adbb12',
     );
     print(message);
 
     ////转账
-    /*var tx = await client.sendTransaction(
+    var tx = await client.sendTransaction(
         credentials,
         Transaction(
           // to: EthereumAddress.fromHex('0xbdc8CAE8c6b269963aE615f4150A178b704131Ca'),
@@ -57,7 +57,7 @@ void main() {
         ),
         chainId: 1);
 
-    print(tx);*/
+    print(tx);
     // await client.dispose();
   });
 

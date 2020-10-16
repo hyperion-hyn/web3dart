@@ -210,6 +210,60 @@ class Web3Client {
     });
   }
 
+  Future<List<dynamic>> getAllValidatorAddress({BlockNum atBlock}) {
+    final blockParam = _getBlockParam(atBlock);
+
+    return _makeRPCCall<List<dynamic>>('eth_getAllValidatorAddresses', [blockParam]).then((data) {
+      return data?.map((item) => item)?.toList();
+    });
+  }
+
+  Future<String> getValidatorInformation(EthereumAddress address, {BlockNum atBlock}) {
+    final blockParam = _getBlockParam(atBlock);
+
+    return _makeRPCCall<String>('eth_getValidatorInformation', [address.hex, blockParam]).then((data) {
+      return data;
+    });
+  }
+
+  Future<BlockNum> getEpochFirstBlockNum(int epoch) {
+    return _makeRPCCall<int>('eth_getEpochFirstBlockNum', [epoch]).then((data) {
+      return BlockNum.exact(data);
+    });
+  }
+
+  Future<BlockNum> getEpochLastBlockNum(int epoch) {
+    return _makeRPCCall<int>('eth_getEpochLastBlockNum', [epoch]).then((data) {
+      return BlockNum.exact(data);
+    });
+  }
+
+  Future<List<dynamic>> getCommitteeAtEpoch(int epoch) {
+    return _makeRPCCall<List<dynamic>>('eth_getCommitteeAtEpoch', [epoch]).then((data) {
+      return data?.map((item) => item)?.toList();
+    });
+  }
+
+  Future<List<dynamic>> getCommitteeInformationAtEpoch(int epoch) {
+    return _makeRPCCall<List<dynamic>>('eth_getCommitteeInformationAtEpoch', [epoch]).then((data) {
+      return data?.map((item) => item)?.toList();
+    });
+  }
+
+  Future<String> getValidatorInformationAtEpoch(EthereumAddress address, int epoch) {
+    return _makeRPCCall<String>('eth_getValidatorInformationAtEpoch', [address.hex, epoch]).then((data) {
+      return data;
+    });
+  }
+
+  Future<String> getValidatorRedelegation(EthereumAddress validatorAddress, EthereumAddress delegatorAddress, {BlockNum atBlock}) {
+    final blockParam = _getBlockParam(atBlock);
+
+    return _makeRPCCall<String>('eth_getValidatorRedelegation', [validatorAddress.hex, delegatorAddress.hex, blockParam]).then((data) {
+      return data;
+    });
+  }
+
   /// Gets an element from the storage of the contract with the specified
   /// [address] at the specified [position].
   /// See https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_getstorageat for
