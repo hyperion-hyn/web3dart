@@ -220,11 +220,16 @@ class Web3Client {
     });
   }
 
-  Future<String> getValidatorInformation(EthereumAddress address, {BlockNum atBlock}) {
+  Future<ValidatorInformationEntity> getValidatorInformation(EthereumAddress address, {BlockNum atBlock}) async {
     final blockParam = _getBlockParam(atBlock);
 
-    return _makeRPCCall<String>('eth_getValidatorInformation', [address.hex, blockParam]).then((data) {
-      return data;
+    /*return _makeRPCCall<String>('eth_getValidatorInformation', [address.hex, blockParam]).then((jsonString) {
+      return jsonString;
+    });*/
+    return _makeRPCCall<Map<String, dynamic>>('eth_getValidatorInformation', [address.hex, blockParam]).then((jsonMap) {
+      final entity = ValidatorInformationEntity.fromJson(jsonMap);
+      printAction(jsonMap, isEncode: true);
+      return entity;
     });
   }
 
@@ -240,29 +245,39 @@ class Web3Client {
     });
   }
 
-  Future<List<dynamic>> getCommitteeAtEpoch(int epoch) {
-    return _makeRPCCall<List<dynamic>>('eth_getCommitteeAtEpoch', [epoch]).then((data) {
-      return data?.map((item) => item)?.toList();
+  Future<ValidatorInformationEntity> getCommitteeAtEpoch(int epoch) {
+    return _makeRPCCall<Map<String, dynamic>>('eth_getCommitteeAtEpoch', [epoch]).then((jsonMap) {
+      final entity = ValidatorInformationEntity.fromJson(jsonMap);
+      printAction(jsonMap, isEncode: true);
+      return entity;
     });
   }
 
   Future<List<dynamic>> getCommitteeInformationAtEpoch(int epoch) {
-    return _makeRPCCall<List<dynamic>>('eth_getCommitteeInformationAtEpoch', [epoch]).then((data) {
-      return data?.map((item) => item)?.toList();
+    return _makeRPCCall<List<dynamic>>('eth_getCommitteeInformationAtEpoch', [epoch]).then((dataList) {
+      return dataList?.map((jsonMap) {
+        final entity = CommitteeInformationEntity.fromJson(jsonMap as Map<String, dynamic>);
+        printAction(jsonMap, isEncode: true);
+        return entity;
+      })?.toList();
     });
   }
 
-  Future<String> getValidatorInformationAtEpoch(EthereumAddress address, int epoch) {
-    return _makeRPCCall<String>('eth_getValidatorInformationAtEpoch', [address.hex, epoch]).then((data) {
-      return data;
+  Future<ValidatorInformationEntity> getValidatorInformationAtEpoch(EthereumAddress address, int epoch) {
+    return _makeRPCCall<Map<String, dynamic>>('eth_getValidatorInformationAtEpoch', [address.hex, epoch]).then((jsonMap) {
+      final entity = ValidatorInformationEntity.fromJson(jsonMap);
+      printAction(jsonMap, isEncode: true);
+      return entity;
     });
   }
 
-  Future<String> getValidatorRedelegation(EthereumAddress validatorAddress, EthereumAddress delegatorAddress, {BlockNum atBlock}) {
+  Future<ValidatorRedelegationEntity> getValidatorRedelegation(EthereumAddress validatorAddress, EthereumAddress delegatorAddress, {BlockNum atBlock}) {
     final blockParam = _getBlockParam(atBlock);
 
-    return _makeRPCCall<String>('eth_getValidatorRedelegation', [validatorAddress.hex, delegatorAddress.hex, blockParam]).then((data) {
-      return data;
+    return _makeRPCCall<Map<String, dynamic>>('eth_getValidatorRedelegation', [validatorAddress.hex, delegatorAddress.hex, blockParam]).then((jsonMap) {
+      final entity = ValidatorRedelegationEntity.fromJson(jsonMap);
+      printAction(jsonMap, isEncode: true);
+      return entity;
     });
   }
 

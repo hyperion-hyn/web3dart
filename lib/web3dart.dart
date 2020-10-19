@@ -10,7 +10,10 @@ import 'package:isolate/runner.dart';
 import 'package:json_rpc_2/json_rpc_2.dart' as rpc;
 import 'package:meta/meta.dart';
 import 'package:stream_channel/stream_channel.dart';
+import 'package:web3dart/src/models/committee_information_entity.dart';
 import 'package:web3dart/src/models/map3_node_information_entity.dart';
+import 'package:web3dart/src/models/validator_information_entity.dart';
+import 'package:web3dart/src/models/validator_redelegation_entity.dart';
 
 import 'contracts.dart';
 import 'credentials.dart';
