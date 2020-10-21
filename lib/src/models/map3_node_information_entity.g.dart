@@ -19,8 +19,8 @@ Map3NodeInformationEntity _$Map3NodeInformationEntityFromJson(
         ?.toList(),
     json['RedelegationReference'] as String,
     json['AccumulatedReward'] as int,
-    json['TotalDelegation'] as double,
-    json['TotalPendingDelegation'] as int,
+    json['TotalDelegation'] as num,
+    json['TotalPendingDelegation'] as num,
   );
 }
 
@@ -106,7 +106,7 @@ Map<String, dynamic> _$DescriptionToJson(Description instance) =>
 Microdelegations _$MicrodelegationsFromJson(Map<String, dynamic> json) {
   return Microdelegations(
     json['DelegatorAddress'] as String,
-    json['Amount'] as double,
+    json['Amount'] as num,
     json['Reward'] as int,
     json['PendingDelegation'] == null
         ? null
@@ -133,7 +133,7 @@ Map<String, dynamic> _$MicrodelegationsToJson(Microdelegations instance) =>
 
 PendingDelegation _$PendingDelegationFromJson(Map<String, dynamic> json) {
   return PendingDelegation(
-    json['Amount'] as int,
+    json['Amount'] as num,
     json['UnlockedEpoch'] as String,
   );
 }

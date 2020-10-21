@@ -290,10 +290,9 @@ class Web3Client {
 
   Future<Map3NodeInformationEntity> getMap3NodeInformation(EthereumAddress map3Address, {BlockNum atBlock}) async {
     final blockParam = _getBlockParam(atBlock);
-    return await _makeRPCCall<String>('eth_getMap3NodeInformation', [map3Address.hex, blockParam]).then((jsonString) {
-      final srcJson = decoder.convert(jsonString);
-      final entity = Map3NodeInformationEntity.fromJson(srcJson as Map<String, dynamic>);
-      printAction(jsonString, isEncode: true);
+    return await _makeRPCCall<Map<String, dynamic>>('eth_getMap3NodeInformation', [map3Address.hex, blockParam]).then((jsonMap) {
+      final entity = Map3NodeInformationEntity.fromJson(jsonMap);
+      printAction(jsonMap, isEncode: true);
       return entity;
     });
   }
@@ -301,21 +300,20 @@ class Web3Client {
   Future<Microdelegations> getMap3NodeDelegation(EthereumAddress map3Address, EthereumAddress delegateAddress,
       {BlockNum atBlock}) async {
     final blockParam = _getBlockParam(atBlock);
-    return await _makeRPCCall<String>('eth_getMap3NodeDelegation', [map3Address.hex, delegateAddress.hex, blockParam])
-        .then((jsonString) {
-      final srcJson = decoder.convert(jsonString);
-      final entity = Microdelegations.fromJson(srcJson as Map<String, dynamic>);
-      printAction(jsonString, isEncode: true);
+    return await _makeRPCCall<Map<String, dynamic>>('eth_getMap3NodeDelegation', [map3Address.hex, delegateAddress.hex, blockParam])
+        .then((jsonMap) {
+      final entity = Microdelegations.fromJson(jsonMap);
+      printAction(jsonMap, isEncode: true);
       return entity;
     });
   }
 
   static const decoder = JsonDecoder();
 
-  Future<String> getAllMap3RewardByDelegatorAddress(EthereumAddress delegateAddress,
+  Future<Map<String, dynamic>> getAllMap3RewardByDelegatorAddress(EthereumAddress delegateAddress,
       {BlockNum atBlock}) async {
     final blockParam = _getBlockParam(atBlock);
-    return await _makeRPCCall<String>('eth_getAllMap3RewardByDelegatorAddress', [delegateAddress.hex, blockParam])
+    return await _makeRPCCall<Map<String, dynamic>>('eth_getAllMap3RewardByDelegatorAddress', [delegateAddress.hex, blockParam])
         .then((value) => value);
   }
 

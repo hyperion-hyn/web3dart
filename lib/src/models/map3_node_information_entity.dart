@@ -19,10 +19,10 @@ part 'map3_node_information_entity.g.dart';
   int accumulatedReward;
 
   @JsonKey(name: 'TotalDelegation')
-  double totalDelegation;
+  num totalDelegation;
 
   @JsonKey(name: 'TotalPendingDelegation')
-  int totalPendingDelegation;
+  num totalPendingDelegation;
 
   Map3NodeInformationEntity(this.map3Node,this.microdelegations,this.redelegationReference,this.accumulatedReward,this.totalDelegation,this.totalPendingDelegation,);
 
@@ -133,7 +133,7 @@ part 'map3_node_information_entity.g.dart';
   String delegatorAddress;
 
   @JsonKey(name: 'Amount')
-  double amount;
+  num amount;
 
   @JsonKey(name: 'Reward')
   int reward;
@@ -160,7 +160,7 @@ part 'map3_node_information_entity.g.dart';
   class PendingDelegation extends Object {
 
   @JsonKey(name: 'Amount')
-  int amount;
+  num amount;
 
   @JsonKey(name: 'UnlockedEpoch')
   String unlockedEpoch;
