@@ -1,7 +1,9 @@
 library web3dart;
 
 import 'dart:async';
+import 'dart:convert';
 import 'dart:typed_data';
+import 'package:convert/convert.dart';
 
 import 'package:collection/collection.dart';
 import 'package:http/http.dart';
@@ -21,15 +23,31 @@ export 'contracts.dart';
 export 'credentials.dart';
 
 part 'src/core/amount.dart';
+
 part 'src/core/block_number.dart';
+
 part 'src/core/client.dart';
+
 part 'src/core/expensive_operations.dart';
+
 part 'src/core/filters.dart';
+
 part 'src/core/sync_information.dart';
+
 part 'src/core/transaction.dart';
+
 part 'src/core/transaction_information.dart';
+
 part 'src/core/transaction_signer.dart';
 
 part 'src/atlas/microstaking_message.dart';
+
 part 'src/atlas/restaking_message.dart';
+
 part 'src/atlas/message.dart';
+
+part 'src/bech32/bech32.dart';
+
+part 'src/bech32/exceptions.dart';
+
+part 'src/bech32/segwit.dart';
