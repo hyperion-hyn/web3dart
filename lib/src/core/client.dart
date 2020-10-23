@@ -210,6 +210,132 @@ class Web3Client {
     });
   }
 
+  //================================= Atlas ==================================
+
+  Future<List<dynamic>> getAllValidatorAddress({BlockNum atBlock}) {
+    final blockParam = _getBlockParam(atBlock);
+
+    return _makeRPCCall<List<dynamic>>('eth_getAllValidatorAddresses', [blockParam]).then((data) {
+      return data?.map((item) => item)?.toList();
+    });
+  }
+
+  Future<ValidatorInformationEntity> getValidatorInformation(EthereumAddress address, {BlockNum atBlock}) async {
+    final blockParam = _getBlockParam(atBlock);
+
+    /*return _makeRPCCall<String>('eth_getValidatorInformation', [address.hex, blockParam]).then((jsonString) {
+      return jsonString;
+    });*/
+    return _makeRPCCall<Map<String, dynamic>>('eth_getValidatorInformation', [address.hex, blockParam]).then((jsonMap) {
+      final entity = ValidatorInformationEntity.fromJson(jsonMap);
+      printAction(jsonMap, isEncode: true);
+      return entity;
+    });
+  }
+
+  Future<BlockNum> getEpochFirstBlockNum(int epoch) {
+    return _makeRPCCall<int>('eth_getEpochFirstBlockNum', [epoch]).then((data) {
+      return BlockNum.exact(data);
+    });
+  }
+
+  Future<BlockNum> getEpochLastBlockNum(int epoch) {
+    return _makeRPCCall<int>('eth_getEpochLastBlockNum', [epoch]).then((data) {
+      return BlockNum.exact(data);
+    });
+  }
+
+  Future<ValidatorInformationEntity> getCommitteeAtEpoch(int epoch) {
+    return _makeRPCCall<Map<String, dynamic>>('eth_getCommitteeAtEpoch', [epoch]).then((jsonMap) {
+      final entity = ValidatorInformationEntity.fromJson(jsonMap);
+      printAction(jsonMap, isEncode: true);
+      return entity;
+    });
+  }
+
+  Future<List<dynamic>> getCommitteeInformationAtEpoch(int epoch) {
+    return _makeRPCCall<List<dynamic>>('eth_getCommitteeInformationAtEpoch', [epoch]).then((dataList) {
+      return dataList?.map((jsonMap) {
+        final entity = CommitteeInformationEntity.fromJson(jsonMap as Map<String, dynamic>);
+        printAction(jsonMap, isEncode: true);
+        return entity;
+      })?.toList();
+    });
+  }
+
+  Future<ValidatorInformationEntity> getValidatorInformationAtEpoch(EthereumAddress address, int epoch) {
+    return _makeRPCCall<Map<String, dynamic>>('eth_getValidatorInformationAtEpoch', [address.hex, epoch]).then((jsonMap) {
+      final entity = ValidatorInformationEntity.fromJson(jsonMap);
+      printAction(jsonMap, isEncode: true);
+      return entity;
+    });
+  }
+
+  Future<ValidatorRedelegationEntity> getValidatorRedelegation(EthereumAddress validatorAddress, EthereumAddress delegatorAddress, {BlockNum atBlock}) {
+    final blockParam = _getBlockParam(atBlock);
+
+    return _makeRPCCall<Map<String, dynamic>>('eth_getValidatorRedelegation', [validatorAddress.hex, delegatorAddress.hex, blockParam]).then((jsonMap) {
+      final entity = ValidatorRedelegationEntity.fromJson(jsonMap);
+      printAction(jsonMap, isEncode: true);
+      return entity;
+    });
+  }
+
+  //================================= Map3 ==================================
+
+  Future<List<dynamic>> getAllMap3NodeAddresses({BlockNum atBlock}) async {
+    final blockParam = _getBlockParam(atBlock);
+    return await _makeRPCCall<List<dynamic>>('eth_getAllMap3NodeAddresses', [blockParam]).then((values) => values);
+  }
+
+  Future<Map3NodeInformationEntity> getMap3NodeInformation(EthereumAddress map3Address, {BlockNum atBlock}) async {
+    final blockParam = _getBlockParam(atBlock);
+    return await _makeRPCCall<Map<String, dynamic>>('eth_getMap3NodeInformation', [map3Address.hex, blockParam]).then((jsonMap) {
+      final entity = Map3NodeInformationEntity.fromJson(jsonMap);
+      printAction(jsonMap, isEncode: true);
+      return entity;
+    });
+  }
+
+  Future<Microdelegations> getMap3NodeDelegation(EthereumAddress map3Address, EthereumAddress delegateAddress,
+      {BlockNum atBlock}) async {
+    final blockParam = _getBlockParam(atBlock);
+    return await _makeRPCCall<Map<String, dynamic>>('eth_getMap3NodeDelegation', [map3Address.hex, delegateAddress.hex, blockParam])
+        .then((jsonMap) {
+      final entity = Microdelegations.fromJson(jsonMap);
+      printAction(jsonMap, isEncode: true);
+      return entity;
+    });
+  }
+
+  static const decoder = JsonDecoder();
+
+  Future<Map<String, dynamic>> getAllMap3RewardByDelegatorAddress(EthereumAddress delegateAddress,
+      {BlockNum atBlock}) async {
+    final blockParam = _getBlockParam(atBlock);
+    return await _makeRPCCall<Map<String, dynamic>>('eth_getAllMap3RewardByDelegatorAddress', [delegateAddress.hex, blockParam])
+        .then((value) => value);
+  }
+
+  void printAction(dynamic input, {bool isEncode = false}) {
+    const encoder = JsonEncoder.withIndent('  ');
+
+    dynamic obj = input;
+
+    print('obj.runtimeType: ${obj.runtimeType}');
+
+    if (isEncode) {
+      if (input is String) {
+        const decoder = JsonDecoder();
+        obj = decoder.convert(input);
+      }
+
+      obj = encoder.convert(obj);
+    }
+
+    print(obj);
+  }
+
   /// Gets an element from the storage of the contract with the specified
   /// [address] at the specified [position].
   /// See https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_getstorageat for
