@@ -62,6 +62,15 @@ void main() {
     print('value: $value');
 
 
+    var map3Address1 = EthereumAddress.fromHex("0xdf3d06f8af7929dcd39455a31c22696ca47b4c96");
+    var walletAddress1 = EthereumAddress.fromHex("0x5c24a14b797a01bcc8ed74092c31794ddd80fb44");
+    print("map3Address1:$map3Address1, walletAddress1:$walletAddress1");
+
+    var microDelegations = await client.getMap3NodeDelegation(
+      map3Address1,
+      walletAddress1,
+    );
+
     /*
     var amount = BigInt.from(110000) * BigInt.from(10).pow(18);
     var message = CreateMap3NodeMessage(
