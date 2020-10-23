@@ -16,7 +16,7 @@ part 'map3_node_information_entity.g.dart';
   String redelegationReference;
 
   @JsonKey(name: 'AccumulatedReward')
-  int accumulatedReward;
+  num accumulatedReward;
 
   @JsonKey(name: 'TotalDelegation')
   num totalDelegation;
@@ -136,7 +136,7 @@ part 'map3_node_information_entity.g.dart';
   num amount;
 
   @JsonKey(name: 'Reward')
-  int reward;
+  num reward;
 
   @JsonKey(name: 'PendingDelegation')
   PendingDelegation pendingDelegation;
