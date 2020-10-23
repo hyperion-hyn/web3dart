@@ -266,3 +266,28 @@ String bech32ToEthAddress(String bech32Address) {
   }
   return '';
 }
+
+String ethAddressToBech32AddressTest(String ethAddress) {
+  if (ethAddress != null && ethAddress.startsWith('thyn1')) {
+    return ethAddress;
+  }
+
+  if (ethAddress != null && ethAddress.isNotEmpty) {
+    final address = EthereumAddress.fromHex(ethAddress);
+    final hynAddressSegwit = Segwit('thyn', 1, address.addressBytes);
+    return segwit.encode(hynAddressSegwit);
+  }
+  return '';
+}
+
+String bech32ToEthAddressTest(String bech32Address) {
+  if (bech32Address != null && !bech32Address.startsWith('thyn1')) {
+    return bech32Address;
+  }
+
+  if (bech32Address != null && bech32Address.isNotEmpty) {
+    final hynSegwit = segwit.decode(bech32Address);
+    return EthereumAddress.fromHex(bytesToHex(hynSegwit.program)).hex;
+  }
+  return '';
+}
