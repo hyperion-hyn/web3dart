@@ -10,6 +10,12 @@ const String privateKey2 = '0x80dd5684b4c5a7218cd97415ec652ed1f11b5b0734f46985b8
 //0x5c24A14B797A01BCc8eD74092c31794dDD80FB44   map3 user wallet address
 void main() {
 
+  test('getHynAddress',(){
+    print(ethAddressToBech32Address('0x5aaeb6053f3e94c9b9a09f33669435e7ef1beaed'));
+
+    print(bech32ToEthAddress('hyn1t2htvpfl862vnwdqnuekd9p4ulh3h6hdldamnd'));
+  });
+
   test('getValidatorInfoAddress',() async {
     final client = Web3Client(rpcUrl, Client());
     final valiDataAddr = await client.getAllValidatorAddress();
