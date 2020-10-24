@@ -58,7 +58,7 @@ class EditMap3NodeMessage implements IMessage {
 
   @override
   Uint8List toRlp() {
-    if(nodeKeyToRemove != null) {
+    if (nodeKeyToRemove != null) {
       return uint8ListFromList(rlp.encode([
         hexToBytes(map3NodeAddress),
         hexToBytes(operatorAddress),
@@ -201,7 +201,7 @@ class RenewMap3NodeMessage implements IMessage {
       hexToBytes(map3NodeAddress),
       hexToBytes(delegatorAddress),
       if (isRenew) 0 else 1,
-      [newCommissionRate ?? 0]
+      if ((newCommissionRate == null) || (newCommissionRate <= BigInt.from(0))) [] else [newCommissionRate ?? 0]
     ]));
   }
 
