@@ -3,7 +3,6 @@ library web3dart;
 import 'dart:async';
 import 'dart:convert';
 import 'dart:typed_data';
-import 'package:convert/convert.dart';
 
 import 'package:collection/collection.dart';
 import 'package:http/http.dart';

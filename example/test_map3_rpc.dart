@@ -66,7 +66,7 @@ void main() {
     var walletAddress1 = EthereumAddress.fromHex("0x5c24a14b797a01bcc8ed74092c31794ddd80fb44");
     print("map3Address1:$map3Address1, walletAddress1:$walletAddress1");
 
-    var microDelegations = await client.getMap3NodeDelegation(
+    await client.getMap3NodeDelegation(
       map3Address1,
       walletAddress1,
     );
