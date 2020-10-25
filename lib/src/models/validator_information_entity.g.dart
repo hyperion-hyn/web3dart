@@ -21,8 +21,8 @@ ValidatorInformationEntity _$ValidatorInformationEntityFromJson(
         ? null
         : Counters.fromJson(json['Counters'] as Map<String, dynamic>),
     json['BlockReward'] as num,
-    json['TotalDelegation'] as double,
-    json['TotalDelegationByOperator'] as double,
+    json['TotalDelegation'] as num,
+    json['TotalDelegationByOperator'] as num,
   );
 }
 
@@ -43,7 +43,7 @@ Validator _$ValidatorFromJson(Map<String, dynamic> json) {
     (json['OperatorAddresses'] as List)?.map((e) => e as String)?.toList(),
     (json['SlotPubKeys'] as List)?.map((e) => e as String)?.toList(),
     json['LastEpochInCommittee'] as int,
-    json['MaxTotalDelegation'] as double,
+    json['MaxTotalDelegation'] as num,
     json['Status'] as int,
     json['Commission'] == null
         ? null
@@ -120,7 +120,7 @@ Map<String, dynamic> _$DescriptionToJson(Description instance) =>
 Redelegations _$RedelegationsFromJson(Map<String, dynamic> json) {
   return Redelegations(
     json['DelegatorAddress'] as String,
-    json['Amount'] as double,
+    json['Amount'] as num,
     json['Reward'] as num,
     json['Undelegation'] == null
         ? null

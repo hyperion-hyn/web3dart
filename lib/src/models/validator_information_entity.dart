@@ -19,10 +19,10 @@ class ValidatorInformationEntity extends Object {
   num blockReward;
 
   @JsonKey(name: 'TotalDelegation')
-  double totalDelegation;
+  num totalDelegation;
 
   @JsonKey(name: 'TotalDelegationByOperator')
-  double totalDelegationByOperator;
+  num totalDelegationByOperator;
 
   ValidatorInformationEntity(this.validator,this.redelegations,this.counters,this.blockReward,this.totalDelegation,this.totalDelegationByOperator,);
 
@@ -49,7 +49,7 @@ class Validator extends Object {
   int lastEpochInCommittee;
 
   @JsonKey(name: 'MaxTotalDelegation')
-  double maxTotalDelegation;
+  num maxTotalDelegation;
 
   @JsonKey(name: 'Status')
   int status;
@@ -145,7 +145,7 @@ class Redelegations extends Object {
   String delegatorAddress;
 
   @JsonKey(name: 'Amount')
-  double amount;
+  num amount;
 
   @JsonKey(name: 'Reward')
   num reward;
