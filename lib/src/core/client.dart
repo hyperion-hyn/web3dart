@@ -464,6 +464,7 @@ class Web3Client {
     EtherAmount value,
     BigInt amountOfGas,
     EtherAmount gasPrice,
+    int txType,
     Uint8List data,
     @Deprecated('Parameter is ignored') BlockNum atBlock,
   }) async {
@@ -476,6 +477,7 @@ class Web3Client {
           if (amountOfGas != null) 'gas': '0x${amountOfGas.toRadixString(16)}',
           if (gasPrice != null) 'gasPrice': '0x${gasPrice.getInWei.toRadixString(16)}',
           if (data != null) 'data': bytesToHex(data, include0x: true),
+          if (txType != null) 'txType': txType,
         },
       ],
     );

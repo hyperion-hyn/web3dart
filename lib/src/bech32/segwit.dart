@@ -23,12 +23,12 @@ class SegwitCodec extends Codec<Segwit, String> {
 /// This class converts a Segwit class instance to a String.
 class SegwitEncoder extends Converter<Segwit, String> with SegwitValidations {
   String convert(Segwit input) {
-    var version = input.version;
+    // var version = input.version;
     var program = input.program;
 
-    if (isInvalidVersion(version)) {
-      throw InvalidWitnessVersion(version);
-    }
+    // if (isInvalidVersion(version)) {
+    //   throw InvalidWitnessVersion(version);
+    // }
 
     if (isTooShortProgram(program)) {
       throw InvalidProgramLength("too short");
@@ -38,9 +38,9 @@ class SegwitEncoder extends Converter<Segwit, String> with SegwitValidations {
       throw InvalidProgramLength("too long");
     }
 
-    if (isWrongVersion0Program(version, program)) {
-      throw InvalidProgramLength("version $version invalid with length ${program.length}");
-    }
+    // if (isWrongVersion0Program(version, program)) {
+    //   throw InvalidProgramLength("version $version invalid with length ${program.length}");
+    // }
 
     var data = _convertBits(program, 8, 5, true);
 
@@ -63,9 +63,9 @@ class SegwitDecoder extends Converter<String, Segwit> with SegwitValidations {
 
     var version = decoded.data[0];
 
-    if (isInvalidVersion(version)) {
-      throw InvalidWitnessVersion(version);
-    }
+    // if (isInvalidVersion(version)) {
+    //   throw InvalidWitnessVersion(version);
+    // }
 
     List<int> program = _convertBits(decoded.data, 5, 8, false);
 
@@ -77,9 +77,9 @@ class SegwitDecoder extends Converter<String, Segwit> with SegwitValidations {
       throw InvalidProgramLength("too long");
     }
 
-    if (isWrongVersion0Program(version, program)) {
-      throw InvalidProgramLength("version $version invalid with length ${program.length}");
-    }
+    // if (isWrongVersion0Program(version, program)) {
+    //   throw InvalidProgramLength("version $version invalid with length ${program.length}");
+    // }
 
     return Segwit(decoded.hrp, version, program);
   }
