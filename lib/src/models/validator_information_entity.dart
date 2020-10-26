@@ -166,7 +166,7 @@ class Redelegations extends Object {
 class Undelegation extends Object {
 
   @JsonKey(name: 'Amount')
-  int amount;
+  num amount;
 
   @JsonKey(name: 'Epoch')
   int epoch;

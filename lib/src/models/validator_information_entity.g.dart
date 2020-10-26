@@ -138,7 +138,7 @@ Map<String, dynamic> _$RedelegationsToJson(Redelegations instance) =>
 
 Undelegation _$UndelegationFromJson(Map<String, dynamic> json) {
   return Undelegation(
-    json['Amount'] as int,
+    json['Amount'] as num,
     json['Epoch'] as int,
   );
 }
