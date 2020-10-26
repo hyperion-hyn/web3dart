@@ -200,7 +200,7 @@ class RenewMap3NodeMessage implements IMessage {
     return uint8ListFromList(rlp.encode([
       hexToBytes(map3NodeAddress),
       hexToBytes(delegatorAddress),
-      if (isRenew) 0 else 1,
+      if (isRenew) 1 else 0,
       if ((newCommissionRate == null) || (newCommissionRate <= BigInt.from(0))) [] else [newCommissionRate ?? 0]
     ]));
   }
