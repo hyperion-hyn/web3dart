@@ -68,9 +68,9 @@ class EditMap3NodeMessage implements IMessage {
         description.securityContact ?? '',
         description.details ?? '',
       ], //Description
-      [hexToBytes(nodeKeyToRemove ?? '')],
-      [hexToBytes(nodeKeyToAdd ?? '')],
-      hexToBytes(nodeKeyToAddSig ?? ''),
+      [hexToBytes(nodeKeyToRemove )],
+      [hexToBytes(nodeKeyToAdd )],
+      hexToBytes(nodeKeyToAddSig),
     ]));
 
     /*
