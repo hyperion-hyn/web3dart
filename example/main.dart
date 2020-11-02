@@ -13,7 +13,8 @@ const String privateKey2 = '0x80dd5684b4c5a7218cd97415ec652ed1f11b5b0734f46985b8
 // const String rpcUrl = 'http://18.181.179.155:8545';
 // const String rpcUrl = 'http://10.10.1.120:8545';
 //const String rpcUrl = 'http://10.10.1.120:8090/v1/proxy'; // moo
-const String rpcUrl = 'http://10.10.1.130:8545'; // js
+// const String rpcUrl = 'http://10.10.1.130:8545'; // js
+const String rpcUrl = 'http://explore-test.hyn.space/v1/proxy';// 链 test
 
 void main() {
   test('update app api', () async {

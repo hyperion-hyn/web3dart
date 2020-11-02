@@ -58,6 +58,22 @@ class EditMap3NodeMessage implements IMessage {
 
   @override
   Uint8List toRlp() {
+    return uint8ListFromList(rlp.encode([
+      hexToBytes(map3NodeAddress),
+      hexToBytes(operatorAddress),
+      [
+        description.name ?? '',
+        description.identity ?? '',
+        description.website ?? '',
+        description.securityContact ?? '',
+        description.details ?? '',
+      ], //Description
+      [hexToBytes(nodeKeyToRemove ?? '')],
+      [hexToBytes(nodeKeyToAdd ?? '')],
+      hexToBytes(nodeKeyToAddSig ?? ''),
+    ]));
+
+    /*
     if (nodeKeyToRemove != null) {
       return uint8ListFromList(rlp.encode([
         hexToBytes(map3NodeAddress),
@@ -88,7 +104,7 @@ class EditMap3NodeMessage implements IMessage {
         [],
         hexToBytes(''),
       ]));
-    }
+    }*/
   }
 
   @override
