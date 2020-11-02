@@ -46,6 +46,7 @@ class EditMap3NodeMessage implements IMessage {
   final String nodeKeyToRemove;
   final String nodeKeyToAdd;
   final String nodeKeyToAddSig;
+  final bool isEditBLS;
 
   EditMap3NodeMessage({
     this.operatorAddress,
@@ -54,27 +55,14 @@ class EditMap3NodeMessage implements IMessage {
     this.nodeKeyToAdd,
     this.nodeKeyToAddSig,
     this.nodeKeyToRemove,
+    this.isEditBLS,
   });
 
   @override
   Uint8List toRlp() {
-    return uint8ListFromList(rlp.encode([
-      hexToBytes(map3NodeAddress),
-      hexToBytes(operatorAddress),
-      [
-        description.name ?? '',
-        description.identity ?? '',
-        description.website ?? '',
-        description.securityContact ?? '',
-        description.details ?? '',
-      ], //Description
-      [hexToBytes(nodeKeyToRemove )],
-      [hexToBytes(nodeKeyToAdd )],
-      hexToBytes(nodeKeyToAddSig),
-    ]));
 
-    /*
-    if (nodeKeyToRemove != null) {
+    // 编辑BLS
+    if (isEditBLS) {
       return uint8ListFromList(rlp.encode([
         hexToBytes(map3NodeAddress),
         hexToBytes(operatorAddress),
@@ -85,11 +73,14 @@ class EditMap3NodeMessage implements IMessage {
           description.securityContact ?? '',
           description.details ?? '',
         ], //Description
-        [hexToBytes(nodeKeyToRemove ?? '')],
-        [hexToBytes(nodeKeyToAdd ?? '')],
-        hexToBytes(nodeKeyToAddSig ?? ''),
+        if (nodeKeyToRemove == null) [] else [hexToBytes(nodeKeyToRemove ?? '')],
+        [hexToBytes(nodeKeyToAdd)],
+        hexToBytes(nodeKeyToAddSig),
       ]));
-    } else {
+
+    }
+    // 编辑节点信息
+    else {
       return uint8ListFromList(rlp.encode([
         hexToBytes(map3NodeAddress),
         hexToBytes(operatorAddress),
@@ -104,7 +95,7 @@ class EditMap3NodeMessage implements IMessage {
         [],
         hexToBytes(''),
       ]));
-    }*/
+    }
   }
 
   @override
