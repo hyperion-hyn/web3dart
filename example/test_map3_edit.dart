@@ -1,7 +1,6 @@
 
 import 'package:http/http.dart';
 import 'package:test/test.dart';
-import 'package:web3dart/src/credentials/convert.dart';
 import 'package:web3dart/web3dart.dart';
 
 const String privateKey =
