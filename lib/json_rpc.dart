@@ -39,12 +39,10 @@ class JsonRPC {
     final data = json.decode(response.body) as Map<String, dynamic>;
     final id = data['id'] as int;
 
-    if (data.containsKey('error') && data['error'] != null) {
-      final error = data['error'];
-
-      final code = error['code'] as int;
-      final message = error['message'] as String;
-      final errorData = error['data'];
+    if (data.containsKey('code') && data['code'] != null && data['code'] != 200) {
+      final code = data['code'] as int;
+      final message = data['msg'] as String;
+      final errorData = data['subMsg'];
 
       throw RPCError(code, message, errorData);
     }
@@ -74,6 +72,6 @@ class RPCError implements Exception {
 
   @override
   String toString() {
-    return 'RPCError: got code $errorCode with msg \"$message\".';
+    return 'RPCError: got code $errorCode with msg \"$message\" and data \"$data\".';
   }
 }
