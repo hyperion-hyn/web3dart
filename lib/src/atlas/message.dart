@@ -42,7 +42,8 @@ class MessageType {
   static const typeCollectMicroStakingRewards = 11;
   static const typeRenewMap3 = 12;  //续约
 
-  static const typeTerminateMap3Reward = 101;  //节点终止结算
+  static const typeUnMicrostakingReturn = 101;  //到期不续期
+  static const typeTerminateMap3Return = 102;  //节点终止后结算
 }
 
 class NodeStatus {
