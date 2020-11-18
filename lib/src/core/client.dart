@@ -40,6 +40,8 @@ class Web3Client {
   ///Whether errors, handled or not, should be printed to the console.
   bool printErrors = false;
 
+  bool printResponse = false;
+
   /// Starts a client that connects to a JSON rpc API, available at [url]. The
   /// [httpClient] will be used to send requests to the rpc server.
   /// The [runner] will be used to perform expensive operations, such as signing
@@ -228,7 +230,7 @@ class Web3Client {
     });*/
     return _makeRPCCall<Map<String, dynamic>>('eth_getValidatorInformation', [address.hex, blockParam]).then((jsonMap) {
       final entity = ValidatorInformationEntity.fromJson(jsonMap);
-      printAction(jsonMap, isEncode: true);
+      printAction(jsonMap, isEncode: true, funcName: 'getValidatorInformation');
       return entity;
     });
   }
@@ -248,7 +250,7 @@ class Web3Client {
   Future<ValidatorInformationEntity> getCommitteeAtEpoch(int epoch) {
     return _makeRPCCall<Map<String, dynamic>>('eth_getCommitteeAtEpoch', [epoch]).then((jsonMap) {
       final entity = ValidatorInformationEntity.fromJson(jsonMap);
-      printAction(jsonMap, isEncode: true);
+      printAction(jsonMap, isEncode: true, funcName: 'getCommitteeAtEpoch');
       return entity;
     });
   }
@@ -257,7 +259,7 @@ class Web3Client {
     return _makeRPCCall<List<dynamic>>('eth_getCommitteeInformationAtEpoch', [epoch]).then((dataList) {
       return dataList?.map((jsonMap) {
         final entity = CommitteeInformationEntity.fromJson(jsonMap as Map<String, dynamic>);
-        printAction(jsonMap, isEncode: true);
+        printAction(jsonMap, isEncode: true, funcName: 'getCommitteeInformationAtEpoch');
         return entity;
       })?.toList();
     });
@@ -266,7 +268,7 @@ class Web3Client {
   Future<ValidatorInformationEntity> getValidatorInformationAtEpoch(EthereumAddress address, int epoch) {
     return _makeRPCCall<Map<String, dynamic>>('eth_getValidatorInformationAtEpoch', [address.hex, epoch]).then((jsonMap) {
       final entity = ValidatorInformationEntity.fromJson(jsonMap);
-      printAction(jsonMap, isEncode: true);
+      printAction(jsonMap, isEncode: true, funcName: 'getValidatorInformationAtEpoch');
       return entity;
     });
   }
@@ -276,7 +278,7 @@ class Web3Client {
 
     return _makeRPCCall<Map<String, dynamic>>('eth_getValidatorRedelegation', [validatorAddress.hex, delegatorAddress.hex, blockParam]).then((jsonMap) {
       final entity = ValidatorRedelegationEntity.fromJson(jsonMap);
-      printAction(jsonMap, isEncode: true);
+      printAction(jsonMap, isEncode: true, funcName: 'getValidatorRedelegation');
       return entity;
     });
   }
@@ -292,7 +294,7 @@ class Web3Client {
     final blockParam = _getBlockParam(atBlock);
     return await _makeRPCCall<Map<String, dynamic>>('eth_getMap3NodeInformation', [map3Address.hex, blockParam]).then((jsonMap) {
       final entity = Map3NodeInformationEntity.fromJson(jsonMap);
-      printAction(jsonMap, isEncode: true);
+      printAction(jsonMap, isEncode: true, funcName: 'getMap3NodeInformation');
       return entity;
     });
   }
@@ -303,7 +305,7 @@ class Web3Client {
     return await _makeRPCCall<Map<String, dynamic>>('eth_getMap3NodeDelegation', [map3Address.hex, delegateAddress.hex, blockParam])
         .then((jsonMap) {
       final entity = Microdelegations.fromJson(jsonMap);
-      printAction(jsonMap, isEncode: true);
+      printAction(jsonMap, isEncode: true, funcName: 'getMap3NodeDelegation');
       return entity;
     });
   }
@@ -317,12 +319,15 @@ class Web3Client {
         .then((value) => value);
   }
 
-  void printAction(dynamic input, {bool isEncode = false}) {
+  void printAction(dynamic input, {bool isEncode = false, String funcName = ''}) {
+
+    if (!printResponse) return;
+
     const encoder = JsonEncoder.withIndent('  ');
 
     dynamic obj = input;
 
-    print('obj.runtimeType: ${obj.runtimeType}');
+    print('[$runtimeType: $funcName], response.runtimeType: ${obj?.runtimeType?.toString()}');
 
     if (isEncode) {
       if (input is String) {
