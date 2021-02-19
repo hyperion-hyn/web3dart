@@ -39,6 +39,20 @@ class JsonRPC {
     final data = json.decode(response.body) as Map<String, dynamic>;
     final id = data['id'] as int;
 
+    if (data.containsKey('error') && data['error'] != null) {
+      final error = data['error'];
+      final code = error['code'] as int;
+      final message = error['message'] as String;
+      final errorData = error['data'];
+
+      throw RPCError(code, message, errorData);
+    }
+
+    //亚马逊错误???
+    if(data['result'] == null && data['jsonrpc'] == null) {
+      throw RPCError(0, data.toString(), "");
+    }
+
     if (data.containsKey('code') && data['code'] != null && data['code'] != 200) {
       final code = data['code'] as int;
       final message = data['msg'] as String;
