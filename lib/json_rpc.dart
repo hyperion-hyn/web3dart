@@ -49,7 +49,7 @@ class JsonRPC {
     }
 
     //亚马逊错误???
-    if(data['result'] == null && data['jsonrpc'] == null) {
+    if(!data.containsKey('result') && !data.containsKey('jsonrpc')) {
       throw RPCError(0, data.toString(), "");
     }
 
